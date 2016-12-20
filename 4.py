@@ -30,10 +30,10 @@ from collections import OrderedDict
 with open('4.input', 'rb') as fh:
     data = [line.strip() for line in fh.readlines()]
 
+rooms = {}
 sector_sum = 0
 for line in data:
     name, sector_and_chksum = line.rsplit('-', 1)
-    name = name.replace('-', '')
     sector = int(sector_and_chksum[:3])
     chksum = sector_and_chksum[4:-1]
 
@@ -49,5 +49,30 @@ for line in data:
 
     if top_five == chksum:
         sector_sum += sector
+        rooms[name] = sector
 
 print(sector_sum)
+
+
+# Part 2
+
+# To decrypt a room name, rotate each letter forward through the alphabet a
+# number of times equal to the room's sector ID. A becomes B, B becomes C,
+# Z becomes A, and so on. Dashes become spaces.
+#
+# For example, the real name for qzmt-zixmtkozy-ivhz-343 is very encrypted name.
+#
+# What is the sector ID of the room where North Pole objects are stored?
+
+for name, sector in rooms.iteritems():
+    name = list(name.replace('-', ' '))
+    chars = string.ascii_lowercase * 2
+    for i in xrange(len(name)):
+        if name[i] == ' ':
+            continue
+        rotations = sector % len(string.ascii_lowercase)
+        index = string.ascii_lowercase.index(name[i])
+        name[i] = chars[rotations + index]
+    name = ''.join(name)
+    if 'northpole' in name:
+        print(sector)
