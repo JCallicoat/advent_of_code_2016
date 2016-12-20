@@ -20,10 +20,15 @@ triangles = 0
 for line in data:
     if is_triangle(*map(int, line.split(' '))):
         triangles += 1
-
 print(triangles)
 
 # Part two: do the same but read by columns
 index = 0
-for lines in data[index:index + 3]:
-    print(lines)
+triangles = 0
+while index < len(data):
+    lines = data[index:index + 3]
+    for i in xrange(3):
+        lines[i] = map(int, lines[i].split(' '))
+    triangles += map(is_triangle, *zip(*lines)).count(True)
+    index += 3
+print(triangles)
