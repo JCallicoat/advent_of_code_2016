@@ -70,6 +70,9 @@ for name, sector in rooms.iteritems():
     for i in xrange(len(name)):
         if name[i] == ' ':
             continue
+        # i'm silly. i should have done the modulo on sector + index instead of
+        # adding the index afterward and doubling the alphabet (since one
+        # more rotation may be needed the way i did it). leaving it for posterity.
         rotations = sector % len(string.ascii_lowercase)
         name[i] = chars[rotations + chars.index(name[i])]
     if 'northpole' in ''.join(name):
