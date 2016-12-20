@@ -71,8 +71,6 @@ for name, sector in rooms.iteritems():
         if name[i] == ' ':
             continue
         rotations = sector % len(string.ascii_lowercase)
-        index = string.ascii_lowercase.index(name[i])
-        name[i] = chars[rotations + index]
-    name = ''.join(name)
-    if 'northpole' in name:
+        name[i] = chars[rotations + chars.index(name[i])]
+    if 'northpole' in ''.join(name):
         print(sector)
