@@ -27,9 +27,7 @@ print(triangles)
 index = 0
 triangles = 0
 while index < len(data):
-    lines = data[index:index + 3]
-    for i in xrange(3):
-        lines[i] = map(int, lines[i].split(' '))
+    lines = [map(int, line.split(' ')) for line in data[index:index + 3]]
     triangles += map(is_triangle, zip(*lines)).count(True)
     index += 3
 print(triangles)
