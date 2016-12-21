@@ -68,7 +68,7 @@ print(lit_sum)
 # in the font it uses, each letter is 5 pixels wide and 6 tall.
 
 screen = []
-for i in xrange(30):
+for i in xrange(6):
     screen.append(list('-' * 50))
 
 def print_screen():
@@ -85,9 +85,9 @@ def rect(width, height):
 
 def rotate_col(col, by):
     # print('rotate_col', col, by)
-    for i in reversed(range(30)):
+    for i in reversed(range(6)):
         y = i + by
-        if y > 30: y -= 30
+        if y >= 6: y -= 6
         if screen[i][col] == '#':
             screen[i][col] = '-'
             screen[y][col] = '#'
