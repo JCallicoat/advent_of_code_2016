@@ -77,42 +77,32 @@ def print_screen():
             print(''.join(row))
 
 def rect(width, height):
-    # print('rect', width, height)
     for x in xrange(height):
         for y in xrange(width):
             screen[x][y] = '#'
-    # print_screen()
 
 def rotate_col(col, by):
-    # print('rotate_col', col, by)
-    new_row = list('-' * 6)
+    new_col = list('-' * 6)
     for i in range(6):
         if screen[i][col] == '#':
-            y = i + by
-            if y >= 6: y -= 6
-            new_row[y] = '#'
+            y = (i + by) % 6
+            new_col[y] = '#'
     for i in range(6):
-        screen[i][col] = new_row[i]
-    # print_screen()
+        screen[i][col] = new_col[i]
 
 def rotate_row(row, by):
-    # print('rotate_row', row, by)
     new_row = list('-' * 50)
     for i, led in enumerate(screen[row]):
         if led == '#':
-            x = i + by
-            if x >= 50: x -= 50
+            x = (i + by) % 50
             new_row[x] = '#'
     screen[row] = new_row
-    # print_screen()
 
 for line in data:
     if line.startswith('rect '):
         rect(*map(int, line[5:].split('x')))
     elif line.startswith('rotate column x='):
         rotate_col(*map(int, line[16:].split(' by ')))
-        # rotate_col(0, 33)
-        # break
     elif line.startswith('rotate row y='):
         rotate_row(*map(int, line[13:].split(' by ')))
 
