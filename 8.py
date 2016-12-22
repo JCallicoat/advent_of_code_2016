@@ -85,12 +85,14 @@ def rect(width, height):
 
 def rotate_col(col, by):
     # print('rotate_col', col, by)
-    for i in reversed(range(6)):
-        y = i + by
-        if y >= 6: y -= 6
+    new_row = list('-' * 6)
+    for i in range(6):
         if screen[i][col] == '#':
-            screen[i][col] = '-'
-            screen[y][col] = '#'
+            y = i + by
+            if y >= 6: y -= 6
+            new_row[y] = '#'
+    for i in range(6):
+        screen[i][col] = new_row[i]
     # print_screen()
 
 def rotate_row(row, by):
